@@ -1,0 +1,78 @@
+# Config Variables
+global:
+  env:
+    - USE_CRON: "TRUE"
+    - INSTALL_STAGE: "1"
+    - ABORT_ON_FAIL: "TRUE"
+# Config Web-Server
+web1:
+    # General
+    name: optsec-web
+    document_root: public
+    shared_writable_dirs:
+        - public/wp-content/uploads/
+        - public/wp-content/cache/
+        - public/wp-content/w3tc-config/
+        - public/wp-content/writable/
+        - public/wp-content/plugins/all-in-one-wp-security-and-firewall/logs
+    # Cron
+    cron:
+        - "*/5 * * * *    php public/wp-cron.php"
+    # Hooks
+    after_build:
+        # - "sh repos.sh"
+        - "sh build.sh"
+        - "sh symlinks.sh"
+    before_deploy:
+        - "php testing/init.php"
+        - "php testing/theme_init.php"
+    # PHP Env
+    php_version: 5.4.14
+    php_display_errors: "1"
+    php_post_max_size: 10M
+    php_upload_max_filesize: 10M
+    php_extensions:
+        - eaccelerator
+        - bz2
+        - curl
+        - fileinfo
+        - filter
+        - ftp
+        - gd
+        - geoip
+        - hash
+        - json
+        - mbstring
+        - mcrypt
+        - memcached
+        - memcache
+        - mysqli
+        - mysql
+        - oauth
+        - pdo_dblib
+        - pdo_mysql
+        - pdo_pgsql
+        - pdo
+        - pdo_sqlite
+        - pgsql
+        - posix
+        - rar
+        - redis
+        - session
+        - simplexml
+        - sockets
+        - sqlite
+        - stats
+        - tidy
+        - xmlreader
+        - xmlrpc
+        - xml
+        - xmlwriter
+        - yaml
+        - zip
+# Config Database
+db1:
+    name: optsec-db
+# Config Cache
+cache2:
+    name: optsec-cache

@@ -1,0 +1,1 @@
+cd /var/www/themes && git clone https://github.com/ProjectCleverWeb/Semantic-UI-WordPress.git && cd ..
